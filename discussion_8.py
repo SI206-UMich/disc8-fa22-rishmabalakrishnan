@@ -24,8 +24,10 @@ def getAdmissionsInfo2019(soup):
     for college in colleges[1:]:
         school_info = college.find_all('td')
         school = school_info[0].text
-        founded = school_info[1].text
+        founded = school_info[1].text.strip()
+        # print(founded)
         college_founded[school] = founded
+    print(college_founded)
     return college_founded
     # pass
 
@@ -50,7 +52,9 @@ class TestAllMethods(unittest.TestCase):
         self.assertEqual(getLink(self.soup), 'https://en.wikipedia.org/wiki/List_of_American_universities_with_Olympic_medals')
 
     def test_admissions_info(self):
-        self.assertEqual(getAdmissionsInfo2019(self.soup), {'Engineering': '1854', 
+        self.assertEqual(getAdmissionsInfo2019(self.soup), {'Literature, Science, andthe Arts': '1841',
+                                                            'Medicine': '1850',
+                                                            'Engineering': '1854', 
                                                             'Law': '1859',
                                                             'Dentistry': '1875', 
                                                             'Pharmacy': '1876', 
