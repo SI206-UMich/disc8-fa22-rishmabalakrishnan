@@ -6,14 +6,28 @@ import unittest
 # search for the url in the University of Michgian wikipedia page (in the third pargraph of the intro)
 # HINT: You will have to add https://en.wikipedia.org to the URL retrieved using BeautifulSoup
 def getLink(soup):
-    
+    medals = soup.find('a', title="List of American universities with Olympic medals")
+    link_end = medals.get('href')
+    # print(link_end)
+    link = "https://en.wikipedia.org" + link_end
+    # print(link)
+    return link
     # pass
 
 # Task 3: Get the details from the box titled "College/school founding". Get all the college/school names and the year they were
 # founded and organize the same into key-value pairs.
 def getAdmissionsInfo2019(soup):
-
-    pass
+    table = soup.find('table', class_="toccolours")
+    colleges = table.find_all('tr')
+    # print(colleges[1])
+    college_founded = {}
+    for college in colleges[1:]:
+        school_info = college.find_all('td')
+        school = school_info[0].text
+        founded = school_info[1].text
+        college_founded[school] = founded
+    return college_founded
+    # pass
 
 
 
